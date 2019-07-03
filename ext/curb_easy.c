@@ -364,6 +364,13 @@ static VALUE ruby_curl_easy_initialize(int argc, VALUE *argv, VALUE self) {
     raise_curl_easy_error_exception(ecode);
   }
 
+  ecode = curl_easy_setopt(rbce->curl, CURLOPT_PROTOCOLS,
+          CURLPROTO_HTTP|CURLPROTO_HTTPS|CURLPROTO_FTP|CURLPROTO_FTPS);
+
+  if (ecode != CURLE_OK) {
+    raise_curl_easy_error_exception(ecode);
+  }
+
   if (blk != Qnil) {
     rb_funcall(blk, idCall, 1, self);
   }
