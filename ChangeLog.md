@@ -1,4 +1,11 @@
 # Change Log
+## 0.9.10.skroutz1
+### Security
+* Expose CURLPROTO_*
+* Allow setting CURLOPT_PROTOCOLS and CURLOPT_REDIR_PROTOCOLS
+* Enable only HTTP/FTP and their TLS counterparts by default. Other protocols
+    have to be explicitly enabled using CURLOPT_PROTOCOLS.
+
 ## 0.9.8
 ### Fixes
 * Fix build with curl `7.62.0`
