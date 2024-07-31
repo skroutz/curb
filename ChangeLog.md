@@ -1,4 +1,9 @@
 # Change Log
+## 0.9.10.skroutz2
+### Fixes
+* Fix `client read function EOF fail, only x/n of needed bytes read` error
+at `read_data_handler` method when using curl version greater than 8.7.1.
+
 ## 0.9.10.skroutz1
 ### Security
 * Expose CURLPROTO_*
@@ -50,7 +55,7 @@ than `Curl::Easy` allows](https://github.com/taf2/curb/pull/329)
 ## 0.9.3
 ### Fixes
 * Correctly check for constants that may not be present in older versions of Curl
- 
+
 ## 0.9.2
 * **Breaking change** - Change base class for exceptions from `Exception` to `StandardError`
 ### Fixes
@@ -94,7 +99,7 @@ parameter](https://github.com/taf2/curb/issues/270)
 ## 0.8.8
 ### Fixes
 * [`Curl::Easy.http_get` broken on macOS](https://github.com/taf2/curb/pull/242)
- 
+
 ## 0.8.7
 ### Breaking Changes
 ### Fixes
@@ -152,7 +157,7 @@ parameter](https://github.com/taf2/curb/issues/270)
 * Clang compatibility
 ### Enhancements
 * Allow string data with simpler interface e.g. `Curl.post('...', 'data')`
- 
+
 ## 0.8.1
 ### Fixes
 * [Error installing on Ubuntu](https://github.com/taf2/curb/issues/106)
@@ -168,7 +173,7 @@ parameter](https://github.com/taf2/curb/issues/270)
 * Add even easier interface: `Curl.get` / `Curl.post` / e.t.c
 
 ## 0.8.0
-* **Breaking change** - `on_failure` only fires for 5xx responses 
+* **Breaking change** - `on_failure` only fires for 5xx responses
 ### Fixes
 * Error in README section for HTTP POST file upload.
 ### Enhancements
@@ -218,7 +223,7 @@ Thanks to igrigorik and ramsingla
 
 ## 0.7.5
 * minor fix for no signal instead of INT2FIX Check boolean value
- 
+
 ## 0.7.4
 * add support to set the http version e.g. `easy.version = Curl::HTTP_1_1`
 * add support to disable libcurls internal use of signals.
