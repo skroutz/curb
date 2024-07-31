@@ -79,7 +79,7 @@ static size_t read_data_handler(void *ptr,
     remaining = len - rbcu->offset;
     str_ptr = RSTRING_PTR(str);
 
-    if( remaining < read_bytes ) {
+    if( remaining <= read_bytes ) {
       if( remaining > 0 ) {
         memcpy(ptr, str_ptr+rbcu->offset, remaining);
         read_bytes = remaining;
@@ -87,12 +87,8 @@ static size_t read_data_handler(void *ptr,
       }
       return remaining;
     }
-    else if( remaining > read_bytes ) { // read_bytes <= remaining - send what we can fit in the buffer(ptr)
+    else { // read_bytes < remaining - send what we can fit in the buffer(ptr)
       memcpy(ptr, str_ptr+rbcu->offset, read_bytes);
-      rbcu->offset += read_bytes;
-    }
-    else { // they're equal
-      memcpy(ptr, str_ptr+rbcu->offset, --read_bytes);
       rbcu->offset += read_bytes;
     }
     return read_bytes;
@@ -1440,7 +1436,7 @@ static VALUE ruby_curl_easy_low_speed_time_get(VALUE self, VALUE low_speed_time)
  * call-seq:
  *   easy.max_send_speed_large = fixnum or nil        => fixnum or nil
  *
- * Set the maximal sending transfer speed (in bytes per second) 
+ * Set the maximal sending transfer speed (in bytes per second)
  */
 static VALUE ruby_curl_easy_max_send_speed_large_set(VALUE self, VALUE max_send_speed_large) {
   CURB_IMMED_SETTER(ruby_curl_easy, max_send_speed_large, 0);
@@ -1450,7 +1446,7 @@ static VALUE ruby_curl_easy_max_send_speed_large_set(VALUE self, VALUE max_send_
  * call-seq:
  *   easy.max_send_speed_large = fixnum or nil        => fixnum or nil
  *
- * Get the maximal sending transfer speed (in bytes per second) 
+ * Get the maximal sending transfer speed (in bytes per second)
  */
 static VALUE ruby_curl_easy_max_send_speed_large_get(VALUE self, VALUE max_send_speed_large) {
   CURB_IMMED_GETTER(ruby_curl_easy, max_send_speed_large, 0);
@@ -1460,7 +1456,7 @@ static VALUE ruby_curl_easy_max_send_speed_large_get(VALUE self, VALUE max_send_
  * call-seq:
  *   easy.max_recv_speed_large = fixnum or nil        => fixnum or nil
  *
- * Set the maximal receiving transfer speed (in bytes per second) 
+ * Set the maximal receiving transfer speed (in bytes per second)
  */
 static VALUE ruby_curl_easy_max_recv_speed_large_set(VALUE self, VALUE max_recv_speed_large) {
   CURB_IMMED_SETTER(ruby_curl_easy, max_recv_speed_large, 0);
@@ -1470,7 +1466,7 @@ static VALUE ruby_curl_easy_max_recv_speed_large_set(VALUE self, VALUE max_recv_
  * call-seq:
  *   easy.max_recv_speed_large = fixnum or nil        => fixnum or nil
  *
- * Get the maximal receiving transfer speed (in bytes per second) 
+ * Get the maximal receiving transfer speed (in bytes per second)
  */
 static VALUE ruby_curl_easy_max_recv_speed_large_get(VALUE self, VALUE max_recv_speed_large) {
   CURB_IMMED_GETTER(ruby_curl_easy, max_recv_speed_large, 0);
