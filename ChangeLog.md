@@ -1,4 +1,7 @@
 # Change Log
+## 1.0.5.skroutz1
+* Fix `client read function EOF fail, only x/n of needed bytes read` error at `read_data_handler` method when using curl version greater than 8.7.1.
+* Security: Enable only HTTP/FTP and their TLS counterparts by default. Other protocols have to be explicitly enabled using CURLOPT_PROTOCOLS.
 ## 1.0.5
 * Add shorter response_code alias -> code
   ```
