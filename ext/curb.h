@@ -28,7 +28,7 @@
 #include "curb_macros.h"
 
 // These should be managed from the Rake 'release' task.
-#define CURB_VERSION   "1.3.6"
+#define CURB_VERSION   "1.3.6.skroutz.1"
 #define CURB_VER_NUM   1036
 #define CURB_VER_MAJ   1
 #define CURB_VER_MIN   3
