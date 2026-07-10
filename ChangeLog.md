@@ -1,5 +1,20 @@
 # ChangeLog
+## 1.3.6.skroutz.2
+* Revert upstream eeb1a69: restore the thread-local `Curl::Easy` caching in the
+  `Curl.get/post/...` shortcuts. Without it every module-level call opens a new
+  connection that lingers until GC, exploding the open-connection count towards
+  internal services (downloader). Safe on this fork because `curl_easy_mark`
+  pins the cached handle against GC compaction (1.3.6.skroutz.1).
+
+## 1.3.6.skroutz.1
+* Mark `rbce->self` in `curl_easy_mark` to pin `Curl::Easy` objects against GC
+  compaction. Upstream stores the wrapper's `VALUE` as a raw back-reference in
+  the C struct without marking it, so compaction leaves it dangling and a later
+  transfer completion can resurrect whatever object reuses the old heap slot
+  (`TypeError: wrong argument type`, corrupted transfers). Submitted upstream.
+
 ## 1.3.6
+* Removing long standing potential for mis-use with the Thread.current caching of easy handles (potentially a breaking change for some but more likely a fix)
 * Add safe request mode for fetching untrusted HTTP(S) URLs: `Curl.safe!`, `Curl.safe_get`, and `Curl::Easy#safe_http!`.
 * Add `CURLOPT_CONNECT_TO`, `Curl::Easy#connect_to`, `CURLOPT_DOH_URL`, `Curl::Easy#doh_url`, and DoH SSL verification options.
 * Restore Ruby 2.6 CI coverage and fix `Curl::Easy#perform` on Ruby 2.6 by avoiding finalizer-backed `ObjectSpace::WeakMap` entries for idle `Curl::Easy` references, including frozen easy handles.
